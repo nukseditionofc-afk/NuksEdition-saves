@@ -1,0 +1,14 @@
+{
+    "nukseditionofc@gmail.com": {
+        "id": "c7e4040b-86ed-4e02-9e43-96720ae984a5",
+        "username": "NB5ertdygt",
+        "password_hash": "pbkdf2:sha256:260000$pJ2fsCvIG7enqvP3$52966a5f908cbe0faf42834a1b428f8e29f076af243d2d65375b866e21992fac",
+        "data_criacao": "11/06/2025"
+    },
+    "eduardomarangoni36@gmail.com": {
+        "id": "a788cf88-52bd-4fe8-b82c-2a19e8399fb6",
+        "username": "EduardoMarangoni",
+        "password_hash": "pbkdf2:sha256:260000$HjMsTU2g2Nb7Ynvt$6665f3a4867d8f3af72fad4e3abc90352ef0b8675a7cd2d4a0d697cad9fe9347",
+        "data_criacao": "11/08/2024"
+    }
+}

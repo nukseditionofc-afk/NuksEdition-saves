@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Configurações</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .close-icon-container {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            text-align: center;
+        }
+        .close-icon {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #000;
+            background: transparent;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+        .close-label {
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        .config-title {
+            text-align: center;
+            font-size: 70px;
+            font-weight: bold;
+            margin-top: 60px;
+            margin-bottom: 0;
+        }
+        .config-line {
+            border-bottom: 6px solid #000;
+            width: 900px;
+            margin: 0 auto 40px auto;
+        }
+        .config-option {
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 40px auto 0 auto;
+            width: 500px;
+        }
+        .option-line {
+            border-bottom: 8px solid #000;
+            width: 400px;
+            margin: 0 auto 0 auto;
+        }
+        .delete-account {
+            position: absolute;
+            left: 50%;
+            bottom: 100px;
+            transform: translateX(-50%);
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+            width: 500px;
+            cursor: pointer;
+        }
+        .delete-line {
+            position: absolute;
+            left: 50%;
+            bottom: 70px;
+            transform: translateX(-50%);
+            border-bottom: 8px solid #000;
+            width: 400px;
+            margin: 0;
+        }
+        .center-options {
+            position: absolute;
+            left: 21%;
+            top: 200px;
+            transform: translateX(0);
+            width: 600px;
+        }
+        .logout-section {
+            position: absolute;
+            left: 50%;
+            bottom: 160px;
+            transform: translateX(-50%);
+            width: 500px;
+            text-align: center;
+        }
+        .logout-text {
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .logout-line {
+            border-bottom: 8px solid #000;
+            width: 400px;
+            margin: 0 auto;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 500px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+        }
+        .modal-buttons button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .input-box {
+            width: 80%;
+            padding: 10px;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="close-icon-container" style="text-decoration: none; color: inherit;">
+        <img src="{{ url_for('send_image', filename='Fechar.png') }}" alt="Fechar" class="close-icon">
+        <div class="close-label">Fechar</div>
+    </a>
+    <div class="config-title">Configurações</div>
+    <div class="config-line"></div>
+    <div class="center-options">
+        <div class="config-option" id="change-email-btn">Alterar email</div>
+        <div class="option-line"></div>
+        <div class="config-option" id="change-password-btn">Alterar senha</div>
+        <div class="option-line"></div>
+    </div>
+    <div class="logout-section">
+        <div class="logout-text" id="logout-btn">Sair</div>
+        <div class="logout-line"></div>
+    </div>
+    <div class="delete-account" id="delete-account-btn">Excluir conta</div>
+    <div class="delete-line"></div>
+
+    <!-- Change Email Modals -->
+    <div id="change-email-modal" class="modal">
+        <div class="modal-content">
+            <p>Enviamos um código para o seu e-mail atual. Por favor, insira-o abaixo para continuar.</p>
+            <form id="change-email-form">
+                <input type="text" id="change-email-code-input" class="input-box" maxlength="6">
+                <div class="modal-buttons">
+                    <button type="submit">Confirmar</button>
+                    <button type="button" id="cancel-change-email">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="new-email-modal" class="modal">
+        <div class="modal-content">
+            <p>Qual o seu novo e-mail?</p>
+            <form id="new-email-form">
+                <input type="email" id="new-email-input" class="input-box">
+                <div class="modal-buttons">
+                    <button type="submit">Confirmar</button>
+                    <button type="button" id="cancel-new-email">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="new-email-code-modal" class="modal">
+        <div class="modal-content">
+            <p>Enviamos um código para o seu novo e-mail. Por favor, insira-o abaixo para confirmar a alteração.</p>
+            <form id="new-email-code-form">
+                <input type="text" id="new-email-code-input" class="input-box" maxlength="6">
+                <div class="modal-buttons">
+                    <button type="submit">Confirmar</button>
+                    <button type="button" id="cancel-new-email-code">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password Modals -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <p>Enviamos um código para o seu e-mail. Por favor, insira-o abaixo para alterar sua senha.</p>
+            <form id="change-password-form">
+                <input type="text" id="change-password-code-input" class="input-box" maxlength="6">
+                <div class="modal-buttons">
+                    <button type="submit">Confirmar</button>
+                    <button type="button" id="cancel-change-password">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="new-password-modal" class="modal">
+        <div class="modal-content">
+            <p>Qual a sua nova senha? (mínimo 6 caracteres)</p>
+            <form id="new-password-form">
+                <input type="password" id="new-password-input" class="input-box" minlength="6">
+                <div class="modal-buttons">
+                    <button type="submit">Confirmar</button>
+                    <button type="button" id="cancel-new-password">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- The Logout Modal -->
+    <div id="logout-modal" class="modal">
+        <div class="modal-content">
+            <p>Tem certeza de que quer sair?</p>
+            <div class="modal-buttons">
+                <button id="confirm-logout">Sim</button>
+                <button id="cancel-logout">Não</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Delete Account Modal -->
+    <div id="delete-account-modal" class="modal">
+        <div class="modal-content">
+            <p>Tem certeza de que quer excluir sua conta?</p>
+            <div class="modal-buttons">
+                <button id="confirm-delete">Sim</button>
+                <button id="cancel-delete">Não</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Delete Code Modal -->
+    <div id="delete-code-modal" class="modal">
+        <div class="modal-content">
+            <p>Digite o código de 6 dígitos enviado para o seu email.</p>
+            <form id="delete-code-form">
+                <input type="text" id="delete-code-input" class="input-box" maxlength="6">
+                <div class="modal-buttons">
+                    <button type="submit">Confirmar</button>
+                    <button type="button" id="cancel-delete-code">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Change Email Modals
+        var changeEmailModal = document.getElementById("change-email-modal");
+        var newEmailModal = document.getElementById("new-email-modal");
+        var newEmailCodeModal = document.getElementById("new-email-code-modal");
+        var changeEmailBtn = document.getElementById("change-email-btn");
+        var cancelChangeEmailBtn = document.getElementById("cancel-change-email");
+        var cancelNewEmailBtn = document.getElementById("cancel-new-email");
+        var cancelNewEmailCodeBtn = document.getElementById("cancel-new-email-code");
+        var changeEmailForm = document.getElementById("change-email-form");
+        var newEmailForm = document.getElementById("new-email-form");
+        var newEmailCodeForm = document.getElementById("new-email-code-form");
+
+        changeEmailBtn.onclick = function() {
+            changeEmailModal.style.display = "block";
+            fetch("{{ url_for('send_change_email_code') }}");
+        }
+
+        cancelChangeEmailBtn.onclick = function() {
+            changeEmailModal.style.display = "none";
+        }
+
+        changeEmailForm.onsubmit = function(e) {
+            e.preventDefault();
+            var code = document.getElementById("change-email-code-input").value;
+            fetch("{{ url_for('verify_change_email_code') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({code: code})
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    changeEmailModal.style.display = "none";
+                    newEmailModal.style.display = "block";
+                } else {
+                    alert("Código incorreto.");
+                }
+            });
+        }
+
+        cancelNewEmailBtn.onclick = function() {
+            newEmailModal.style.display = "none";
+        }
+
+        newEmailForm.onsubmit = function(e) {
+            e.preventDefault();
+            var newEmail = document.getElementById("new-email-input").value;
+            fetch("{{ url_for('send_new_email_code') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({new_email: newEmail})
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    newEmailModal.style.display = "none";
+                    newEmailCodeModal.style.display = "block";
+                } else if (data.error === 'email_exists') {
+                    alert("Esse email já está registrado. Tente outro");
+                } else {
+                    alert("Ocorreu um erro ao enviar o e-mail. Tente novamente.");
+                }
+            });
+        }
+
+        cancelNewEmailCodeBtn.onclick = function() {
+            newEmailCodeModal.style.display = "none";
+        }
+
+        newEmailCodeForm.onsubmit = function(e) {
+            e.preventDefault();
+            var code = document.getElementById("new-email-code-input").value;
+            fetch("{{ url_for('verify_new_email_code') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({code: code})
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    alert("E-mail alterado com sucesso!");
+                    window.location.reload();
+                } else {
+                    alert("Código incorreto.");
+                }
+            });
+        }
+
+        // Change Password Modals
+        var changePasswordModal = document.getElementById("change-password-modal");
+        var newPasswordModal = document.getElementById("new-password-modal");
+        var changePasswordBtn = document.getElementById("change-password-btn");
+        var cancelChangePasswordBtn = document.getElementById("cancel-change-password");
+        var cancelNewPasswordBtn = document.getElementById("cancel-new-password");
+        var changePasswordForm = document.getElementById("change-password-form");
+        var newPasswordForm = document.getElementById("new-password-form");
+
+        changePasswordBtn.onclick = function() {
+            changePasswordModal.style.display = "block";
+            fetch("{{ url_for('send_change_password_code') }}");
+        }
+
+        cancelChangePasswordBtn.onclick = function() {
+            changePasswordModal.style.display = "none";
+        }
+
+        changePasswordForm.onsubmit = function(e) {
+            e.preventDefault();
+            var code = document.getElementById("change-password-code-input").value;
+            fetch("{{ url_for('verify_change_password_code') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({code: code})
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    changePasswordModal.style.display = "none";
+                    newPasswordModal.style.display = "block";
+                } else {
+                    alert("Código incorreto.");
+                }
+            });
+        }
+
+        cancelNewPasswordBtn.onclick = function() {
+            newPasswordModal.style.display = "none";
+        }
+
+        newPasswordForm.onsubmit = function(e) {
+            e.preventDefault();
+            var newPassword = document.getElementById("new-password-input").value;
+            if (newPassword.length < 6) {
+                alert("A senha deve ter no mínimo 6 caracteres.");
+                return;
+            }
+            fetch("{{ url_for('update_password') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({new_password: newPassword})
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    alert("Senha alterada com sucesso!");
+                    newPasswordModal.style.display = "none";
+                } else {
+                    alert("Ocorreu um erro ao alterar a senha. Tente novamente.");
+                }
+            });
+        }
+
+        // Logout Modal
+        var logoutModal = document.getElementById("logout-modal");
+        var logoutBtn = document.getElementById("logout-btn");
+        var cancelLogoutBtn = document.getElementById("cancel-logout");
+        var confirmLogoutBtn = document.getElementById("confirm-logout");
+
+        logoutBtn.onclick = function() {
+            logoutModal.style.display = "block";
+        }
+        cancelLogoutBtn.onclick = function() {
+            logoutModal.style.display = "none";
+        }
+        confirmLogoutBtn.onclick = function() {
+            window.location.href = "{{ url_for('logout') }}";
+        }
+
+        // Delete Account Modals
+        var deleteAccountModal = document.getElementById("delete-account-modal");
+        var deleteCodeModal = document.getElementById("delete-code-modal");
+        var deleteAccountBtn = document.getElementById("delete-account-btn");
+        var cancelDeleteBtn = document.getElementById("cancel-delete");
+        var confirmDeleteBtn = document.getElementById("confirm-delete");
+        var cancelDeleteCodeBtn = document.getElementById("cancel-delete-code");
+        var deleteCodeForm = document.getElementById("delete-code-form");
+
+        deleteAccountBtn.onclick = function() {
+            deleteAccountModal.style.display = "block";
+        }
+        cancelDeleteBtn.onclick = function() {
+            deleteAccountModal.style.display = "none";
+        }
+        confirmDeleteBtn.onclick = function() {
+            deleteAccountModal.style.display = "none";
+            deleteCodeModal.style.display = "block";
+            fetch("{{ url_for('send_delete_code') }}");
+        }
+        cancelDeleteCodeBtn.onclick = function() {
+            deleteCodeModal.style.display = "none";
+        }
+        deleteCodeForm.onsubmit = function(e) {
+            e.preventDefault();
+            var code = document.getElementById("delete-code-input").value;
+            fetch("{{ url_for('verify_delete_code') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({code: code})
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    window.location.href = "{{ url_for('index') }}";
+                } else {
+                    alert("Código incorreto.");
+                }
+            });
+        }
+
+
+    </script>
+
+</body>
+</html>

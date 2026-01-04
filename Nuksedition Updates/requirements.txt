@@ -1,0 +1,4 @@
+pygame
+pywebview
+pyinstaller
+requests

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .top-bar {
+            background: #bdbdbd;
+            padding: 5px 0 0 0;
+            border-bottom: 4px solid #000;
+            position: relative;
+        }
+        .title {
+            font-size: 55px;
+            font-weight: bold;
+            color: #000;
+            margin-left: 10px;
+            text-decoration: underline;
+            display: inline-block;
+            position: absolute;
+            left: 10px;
+            bottom: 0;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .nav-item {
+            text-align: center;
+        }
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #000;
+            margin-bottom: 3px;
+            background: #bdbdbd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .nav-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        .main-content {
+            display: flex;
+            margin-top: 40px;
+        }
+        .sidebar {
+            width: 350px;
+            padding-left: 10px;
+        }
+        .sidebar-section {
+            margin-bottom: 60px;
+        }
+        .sidebar-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #000;
+            text-decoration: underline;
+        }
+        .sidebar-line {
+            border-bottom: 5px solid #000;
+            width: 330px;
+            margin-bottom: 10px;
+        }
+        .center-content {
+            flex: 1;
+            text-align: center;
+        }
+        .welcome-title {
+            font-size: 64px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 40px;
+        }
+        .update-section {
+            font-size: 32px;
+            font-weight: bold;
+            color: #222;
+            margin-top: 40px;
+        }
+        .update-line {
+            border-bottom: 5px solid #000;
+            width: 900px;
+            margin: 0 auto 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span class="title">NUKSEDITION</span>
+        <div class="nav">
+            <div class="nav-item">
+                <div class="nav-icon" style="border:none;background:transparent;display:flex;justify-content:flex-start;align-items:center;">
+                    <img src="../Imagens/Pesquisar.png" alt="Pesquisar" style="width:50px;height:50px;object-fit:contain;display:block;margin-left:10px;">
+                </div>
+                <div class="nav-label">Pesquisar</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon" style="border:none;background:transparent;display:flex;justify-content:flex-start;align-items:center;">
+                    <img src="../Imagens/Explorar.png" alt="Explorar" style="width:50px;height:50px;object-fit:contain;display:block;margin-left:10px;">
+                </div>
+                <div class="nav-label"><a href="{{ url_for('explorar') }}" style="text-decoration: none; color: inherit;">Explorar</a></div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon" style="border:none;background:transparent;display:flex;justify-content:flex-start;align-items:center;">
+                    <img src="../Imagens/Jogos.png" alt="Jogos" style="width:50px;height:50px;object-fit:contain;display:block;margin-left:0;">
+                </div>
+                <div class="nav-label"><a href="{{ url_for('game') }}" style="text-decoration: none; color: inherit;">Jogos</a></div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon" style="border:none;background:transparent;display:flex;justify-content:flex-start;align-items:center;">
+                    <img src="../Imagens/Noticias.png" alt="Noticias" style="width:50px;height:50px;object-fit:contain;display:block;margin-left:5px;">
+                </div>
+                <div class="nav-label">Noticias</div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title"><a href="{{ url_for('user') }}" style="text-decoration: none; color: inherit;">Sua conta</a></div>
+                <div class="sidebar-line"></div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Versão</div>
+                <div class="sidebar-line"></div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title"><a href="{{ url_for('config') }}" style="text-decoration: none; color: inherit;">Configurações</a></div>
+                <div class="sidebar-line"></div>
+            </div>
+        </div>
+        <div class="center-content">
+            <div class="welcome-title">Bem vindo a NuksEdition</div>
+            <div class="update-section">Update NuksEdition</div>
+            <div class="update-line"></div>
+        </div>
+    </div>
+</body>
+</html>

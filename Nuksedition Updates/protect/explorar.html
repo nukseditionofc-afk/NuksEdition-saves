@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Explorar</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .top-bar {
+            background: #bdbdbd;
+            border-bottom: 4px solid #000;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #000;
+            text-decoration: underline;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+        .download-bar {
+            border: 3px solid #000;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            width: 500px;
+            justify-content: space-between;
+        }
+        .download-label {
+            font-size: 24px;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+        .download-button {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 20px;
+            padding: 10px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+        }
+        .close-section {
+            position: absolute;
+            top: 80px;
+            right: 30px;
+            text-align: center;
+        }
+        .icon-box {
+            display: block;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 5px;
+            border: 3px solid #000;
+            object-fit: contain;
+        }
+        .close-btn {
+            font-weight: bold;
+            font-size: 22px;
+            color: #000;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span class="title">Explorar</span>
+    </div>
+
+    <div class="main-content">
+        <div class="download-bar">
+            <span class="download-label">Baixar calculadora</span>
+            <a href="{{ url_for('download_calculadora') }}" class="download-button">Baixar</a>
+        </div>
+    </div>
+
+    <div class="close-section">
+        <img src="{{ url_for('send_image', filename='Fechar.png') }}" alt="Fechar" class="icon-box">
+        <a href="{{ url_for('home') }}" class="close-btn">Fechar</a>
+    </div>
+</body>
+</html>
