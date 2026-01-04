@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Cadastro</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .header {
+            background: #888;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0 15px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .cadastro-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            font-size: 18px;
+            padding: 0 10px;
+            border: 3px solid #000;
+            margin: 0 auto 10px auto;
+            box-sizing: border-box;
+            display: block;
+            border-radius: 0; /* bordas totalmente retas */
+        }
+        .input-field:focus {
+            outline: none;
+            border-radius: 0;
+        }
+        .cadastro-btn {
+            background: #888;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            padding: 12px 40px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 0; /* bordas totalmente retas */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .login-link {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 40px;
+            display: block;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">NuksEdition</div>
+    <div class="container">
+        <div class="cadastro-title">Cadastrar-se</div>
+        <form action="{{ url_for('cadastro') }}" method="POST">
+            <div class="input-group">
+                <input class="input-field" type="text" id="usuario" name="usuario" required placeholder="Nome de usuario">
+            </div>
+            <div class="input-group">
+                <input class="input-field" type="email" id="email" name="email" required placeholder="Email">
+            </div>
+            <div class="input-group">
+                <input class="input-field" type="password" id="senha" name="senha" required placeholder="Senha" minlength="6" title="A senha deve ter no mínimo 6 caracteres.">
+            </div>
+            <button class="cadastro-btn" type="submit">Cadastrar</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="login-link">Já tem uma conta: login</a>
+    </div>
+
+    <script>
+        // Verifica se a URL tem o parâmetro de erro e mostra o alerta
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error') && urlParams.get('error') === 'email_exists') {
+                alert('Este email já está cadastrado!');
+                // Limpa a URL para não mostrar o alerta de novo ao recarregar
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+    </script>
+</body>
+</html>

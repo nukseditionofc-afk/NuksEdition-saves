@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Explorar</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .header {
+            background: #808080;
+            color: #fff;
+            font-weight: bold;
+            font-size: 24px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .main-content {
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+        .item-container {
+            border: 2px solid #000;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-name {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .download-button {
+            background-color: #fff;
+            border: 2px solid #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <!-- O nome de usuário vindo do Flask -->
+        <span>{{ usuario }}</span>
+        <!-- O link para voltar para a Home -->
+        <a href="{{ url_for('home') }}">Voltar</a>
+    </div>
+
+    <div class="main-content">
+        <div class="item-container">
+            <span class="item-name">Calculadora</span>
+            <a href="{{ url_for('download_calculadora') }}" class="download-button">Baixar</a>
+        </div>
+    </div>
+
+</body>
+</html>

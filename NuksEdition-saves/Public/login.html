@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .header {
+            background: #888;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0 15px 0;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .login-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            font-size: 18px;
+            padding: 0 10px;
+            border: 3px solid #000;
+            margin: 0 auto 10px auto;
+            box-sizing: border-box;
+            display: block;
+            border-radius: 0; /* bordas totalmente retas */
+        }
+        .input-field:focus {
+            outline: none;
+            border-radius: 0;
+        }
+        .login-btn {
+            background: #888;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            border: none;
+            padding: 12px 40px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 0; /* bordas totalmente retas */
+        }
+        .register-link {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 40px;
+            display: block;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">NuksEdition</div>
+    <div class="container">
+        <div class="login-title">Login</div>
+        <form id="login-form" method="POST" action="{{ url_for('index') }}">
+            <div class="input-group">
+                <input class="input-field" type="email" id="email" name="email" required placeholder="Email">
+            </div>
+            <div class="input-group">
+                <input class="input-field" type="password" id="senha" name="senha" required placeholder="Senha">
+            </div>
+            <button class="login-btn" type="submit">Entrar</button>
+        </form>
+        <a href="{{ url_for('cadastro') }}" class="register-link">Não tem uma conta? Cadastre-se</a>
+    </form>
+
+    <script>
+        // SCRIPT ATUALIZADO PARA MOSTRAR ERROS ESPECÍFICOS
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+
+            if (error === 'email_not_found') {
+                alert('Email não cadastrado!');
+            } else if (error === 'wrong_password') {
+                alert('Senha incorreta!');
+            }
+            
+            // Limpa a URL se houver um parâmetro de erro
+            if (error) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+    </script>
+
+</body>
+</html>

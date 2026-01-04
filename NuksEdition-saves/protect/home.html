@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>NuksEdition - Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+        }
+        .header {
+            background: #808080; /* Cinza, como na imagem */
+            color: #fff;
+            font-weight: bold;
+            font-size: 24px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Alinha itens nas extremidades */
+            align-items: center;
+        }
+        .header a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .main-content {
+            text-align: center;
+            padding-top: 150px;
+            font-size: 48px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* --- ESTILOS ADICIONADOS APENAS PARA O DROPDOWN --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none; /* Escondido por padrão */
+            position: absolute;
+            background-color: white;
+            min-width: 80px;
+            border: 2px solid black; /* Borda preta como no desenho */
+            z-index: 1;
+            top: 120%; /* Posição abaixo do nome de usuário */
+            left: 0;
+        }
+
+        /* O triângulo acima da caixa (como no desenho) */
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 15px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent transparent black transparent;
+        }
+
+        .dropdown-content a {
+            color: black; /* Texto 'Sair' em preto */
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal; /* Garante que não fique em negrito */
+        }
+
+        /* Mostra o dropdown ao passar o mouse */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* --- FIM DOS ESTILOS DO DROPDOWN --- */
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <!-- Estrutura do Dropdown -->
+        <div class="dropdown">
+            <span>{{ usuario }}</span>
+            <div class="dropdown-content">
+                <a href="{{ url_for('logout') }}">Sair</a>
+            </div>
+        </div>
+        
+        <a href="{{ url_for('explorar') }}">Explorar</a>
+    </div>
+
+    <div class="main-content">
+        Site oficial da NuksEdition
+    </div>
+
+    <script>
+        // O script do alerta de sucesso pode continuar aqui
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('success')) {
+                alert('Código confirmado com sucesso!');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+    </script>
+</body>
+</html>
